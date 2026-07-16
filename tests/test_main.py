@@ -15,7 +15,7 @@ mock_psycopg2 = MagicMock()
 # Настраиваем мок для подключения к БД
 mock_conn = MagicMock()
 mock_cursor = MagicMock()
-mock_cursor.fetchone.return_value = (1,)  # Возвращаем 1 запись
+mock_cursor.fetchone.return_value = (1,)
 mock_conn.cursor.return_value = mock_cursor
 mock_psycopg2.connect.return_value = mock_conn
 
