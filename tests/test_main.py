@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 # Добавляем корневую директорию в PYTHONPATH
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import pytest
+# Импортируем после настройки пути
 from fastapi.testclient import TestClient
 
 # --- Создаем моки ДО импорта app ---
@@ -44,14 +44,14 @@ def test_root():
     """Проверка root endpoint с моками"""
     # Настраиваем мок для последовательных вызовов incr
     mock_redis.incr.side_effect = [1, 2]
-    
+
     response1 = client.get("/")
     assert response1.status_code == 200
     data1 = response1.json()
     assert data1["status"] == "success"
     assert data1["redis_hits"] == 1
     assert data1["postgres_records"] == 1
-    
+
     response2 = client.get("/")
     assert response2.status_code == 200
     data2 = response2.json()
